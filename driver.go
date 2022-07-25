@@ -35,6 +35,8 @@ func (t timeoutDriver) Open(connection string) (_ driver.Conn, err error) {
 		}
 	}
 
+	connection = strings.ReplaceAll(connection, "'", "")
+
 	for _, setting := range strings.Fields(connection) {
 		s := strings.Split(setting, "=")
 		if s[0] == "read_timeout" {
