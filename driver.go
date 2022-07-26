@@ -13,14 +13,14 @@ import (
 )
 
 func init() {
-	sql.Register("pq-timeouts", TimeoutDriver{dialOpen: pq.DialOpen})
+	sql.Register("pq-timeouts", timeoutDriver{dialOpen: pq.DialOpen})
 }
 
-type TimeoutDriver struct {
+type timeoutDriver struct {
 	dialOpen func(pq.Dialer, string) (driver.Conn, error) // Allow this to be stubbed for testing
 }
 
-func (t TimeoutDriver) Open(connection string) (_ driver.Conn, err error) {
+func (t timeoutDriver) Open(connection string) (_ driver.Conn, err error) {
 	// Look for read_timeout and write_timeout in the connection string and extract the values.
 	// read_timeout and write_timeout need to be removed from the connection string before calling pq as well.
 	var newConnectionSettings []string
