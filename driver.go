@@ -16,7 +16,7 @@ func init() {
 	sql.Register("pq-timeouts", timeoutDriver{dialOpen: pq.DialOpen})
 }
 
-type timeoutDriver struct {
+type TimeoutDriver struct {
 	dialOpen func(pq.Dialer, string) (driver.Conn, error) // Allow this to be stubbed for testing
 }
 
